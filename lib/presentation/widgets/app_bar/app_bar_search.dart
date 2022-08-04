@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AppBarSearch extends StatelessWidget {
-  const AppBarSearch({
-    Key? key,
-    this.controller,
-    this.hintText,
-    this.onTap,
-  }) : super(key: key);
+  const AppBarSearch(
+      {Key? key, this.controller, this.hintText, this.onTap, this.onChanged})
+      : super(key: key);
 
   final String? hintText;
   final TextEditingController? controller;
   final VoidCallback? onTap;
+  final ValueChanged? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +18,7 @@ class AppBarSearch extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 5.0),
             child: TextFormField(
+              onChanged: onChanged,
               controller: controller,
               decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(12.0),

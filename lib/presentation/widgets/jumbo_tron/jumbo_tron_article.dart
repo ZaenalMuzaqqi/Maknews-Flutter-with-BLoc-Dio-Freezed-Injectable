@@ -36,39 +36,43 @@ class JumboTronArticle extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 77.0,
-              width: double.infinity,
-              padding: const EdgeInsets.all(18.0),
-              margin: const EdgeInsets.symmetric(horizontal: 25.0),
-              decoration: BoxDecoration(
-                color: Colors.indigo,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Oleh $writer dari $source',
-                    textAlign: TextAlign.left,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w500),
+            child: Column(
+              children: [
+                const Expanded(child: SizedBox()),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(18.0),
+                  margin: const EdgeInsets.symmetric(horizontal: 25.0),
+                  decoration: BoxDecoration(
+                    color: Colors.indigo,
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                  Text(
-                    date,
-                    textAlign: TextAlign.left,
-                    style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w400),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Oleh $writer dari $source',
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        date,
+                        textAlign: TextAlign.left,
+                        style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           )
         ],

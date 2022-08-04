@@ -16,7 +16,7 @@ class JumboTronHome extends StatelessWidget {
       height: 250.0,
       width: double.infinity,
       child: GestureDetector(
-        onTap: () {},
+        onTap: onTap,
         child: Stack(
           children: [
             CachedNetworkImage(

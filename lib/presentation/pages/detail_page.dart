@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:qinews/domain/article_model.dart';
+import 'package:qinews/injector.dart';
+import '../manager/bookmark_article/bookmark_article_bloc.dart';
 import '../widgets/widgets.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({Key? key}) : super(key: key);
+  const DetailPage({Key? key, this.articleModel}) : super(key: key);
+
+  final ArticleModel? articleModel;
 
   @override
   Widget build(BuildContext context) {
+    void convertTime() {
+      DateTime now = DateTime.now();
+      String formattedDate = DateFormat('yMMMMEEEEd', 'en_US').format(now);
+
+      return print(now);
+    }
+
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 25.0,
@@ -25,23 +40,33 @@ class DetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const JumboTronArticle(
-              imageUrl:
-                  "https://images.unsplash.com/photo-1658279366986-4f188712a3e9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-              date: '20 Mei 2022',
-              writer: 'Anna Masduun',
-              source: 'Kompas',
+            JumboTronArticle(
+              imageUrl: articleModel!.urlToImage,
+              date: articleModel!.publishedAt.toString(),
+              writer: articleModel!.author,
+              source: articleModel!.source!.name,
             ),
-            const ArticleTitle(
-              text: 'The 12 Things Traveling Teaches You',
+            ArticleTitle(
+              text: articleModel!.title,
             ),
-            const ArticleDesc(
-              text:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+            ArticleDesc(
+              text: articleModel!.description,
             ),
-            BottomMenu(
-              onTapSave: () {},
-              onTapShare: () {},
+            BlocProvider(
+              create: ((context) => getIt<BookmarkArticleBloc>()),
+              child: BlocBuilder<BookmarkArticleBloc, BookmarkArticleState>(
+                  builder: (context, state) {
+                return BottomMenu(
+                  onTapSave: () {
+                    context.read<BookmarkArticleBloc>().add(
+                          BookmarkArticleEvent.saveBookmark(articleModel!),
+                        );
+                  },
+                  onTapShare: () {
+                    print(articleModel);
+                  },
+                );
+              }),
             )
           ],
         ),

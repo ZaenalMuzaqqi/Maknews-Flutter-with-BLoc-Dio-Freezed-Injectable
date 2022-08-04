@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'config/app_route.dart';
+import 'injector.dart';
 
 void main() {
+  configureDependencies();
   runApp(const MyApp());
 }
 

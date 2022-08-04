@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ArticleTile extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final String imageUrl;
   final String date;
   final String title;
   const ArticleTile({
     Key? key,
-    required this.onTap,
+    this.onTap,
     this.imageUrl = '',
     this.date = '',
     this.title = '',
@@ -72,6 +72,7 @@ class ArticleTile extends StatelessWidget {
                       DecorationImage(image: imageProvider, fit: BoxFit.cover),
                 ),
               ),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
               imageUrl: imageUrl,
               fit: BoxFit.cover,
             ),

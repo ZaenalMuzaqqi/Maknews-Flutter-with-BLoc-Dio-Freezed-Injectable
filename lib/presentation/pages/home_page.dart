@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qinews/injector.dart';
+import '../manager/headline_article/headline_article_bloc.dart';
 import '../widgets/widgets.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,57 +16,57 @@ class HomePage extends StatelessWidget {
         shadowColor: Colors.transparent,
         title: AppBarHome(
           onTapBookmark: () {
-            Navigator.pushNamed(context, '/detail_page');
+            Navigator.pushNamed(context, '/bookmark_page');
           },
-          onTapSearch: () {},
+          onTapSearch: () {
+            Navigator.pushNamed(context, '/search_page');
+          },
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            JumboTronHome(
-              onTap: () {},
-              imageUrl:
-                  "https://images.unsplash.com/photo-1658279366986-4f188712a3e9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-              title:
-                  'We are driven into wild rage by our luxorius lives, so that whatever does',
-            ),
-            ArticleTile(
-              onTap: () {},
-              title: 'we are driven into wild range by our luxorius lives',
-              imageUrl:
-                  'https://images.unsplash.com/photo-1657299156379-9edd28706711?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxNnx8fGVufDB8fHx8&auto=format&fit=crop&w=900&q=60',
-              date: '20 Maret 2022',
-            ),
-            ArticleTile(
-              onTap: () {},
-              title: 'we are driven into wild range by our luxorius lives',
-              imageUrl:
-                  'https://images.unsplash.com/photo-1657299156379-9edd28706711?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxNnx8fGVufDB8fHx8&auto=format&fit=crop&w=900&q=60',
-              date: '20 Maret 2022',
-            ),
-            ArticleTile(
-              onTap: () {},
-              title: 'we are driven into wild range by our luxorius lives',
-              imageUrl:
-                  'https://images.unsplash.com/photo-1657299156379-9edd28706711?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxNnx8fGVufDB8fHx8&auto=format&fit=crop&w=900&q=60',
-              date: '20 Maret 2022',
-            ),
-            ArticleTile(
-              onTap: () {},
-              title: 'we are driven into wild range by our luxorius lives',
-              imageUrl:
-                  'https://images.unsplash.com/photo-1657299156379-9edd28706711?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxNnx8fGVufDB8fHx8&auto=format&fit=crop&w=900&q=60',
-              date: '20 Maret 2022',
-            ),
-            ArticleTile(
-              onTap: () {},
-              title: 'we are driven into wild range by our luxorius lives',
-              imageUrl:
-                  'https://images.unsplash.com/photo-1657299156379-9edd28706711?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxNnx8fGVufDB8fHx8&auto=format&fit=crop&w=900&q=60',
-              date: '20 Maret 2022',
-            ),
-          ],
+      body: BlocProvider(
+        create: ((context) => getIt<HeadlineArticleBloc>()
+          ..add(const HeadlineArticleEvent.getHeadline())),
+        child: BlocConsumer<HeadlineArticleBloc, HeadlineArticleState>(
+          listener: (context, state) {
+            state.maybeMap(
+              orElse: () {},
+            );
+          },
+          builder: (context, state) {
+            return state.maybeMap(
+              orElse: () => Container(),
+              isLoading: (e) => Container(),
+              isError: (e) => Container(),
+              isGetHeadline: (value) {
+                return ListView.builder(
+                    physics: const ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: value.listArticle.length,
+                    itemBuilder: (context, index) {
+                      if (index == 0) {
+                        return JumboTronHome(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/detail_page',
+                                arguments: value.listArticle[0]);
+                          },
+                          imageUrl: value.listArticle[0].urlToImage,
+                          title: value.listArticle[0].title,
+                        );
+                      } else {
+                        return ArticleTile(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/detail_page',
+                                arguments: value.listArticle[index]);
+                          },
+                          imageUrl: value.listArticle[index].urlToImage,
+                          title: value.listArticle[index].title,
+                          date: value.listArticle[index].publishedAt.toString(),
+                        );
+                      }
+                    });
+              },
+            );
+          },
         ),
       ),
     );

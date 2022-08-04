@@ -25,7 +25,7 @@ class BottomMenu extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            onPressed: () {},
+            onPressed: onTapSave,
             icon: const Icon(
               Icons.bookmark_border_outlined,
               size: 28,
@@ -33,7 +33,7 @@ class BottomMenu extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: onTapShare,
             icon: const Icon(
               Icons.share_outlined,
               size: 28,
