@@ -12,5 +12,6 @@ MakNew dibuat dengan Flutter dengan Clean Architecture menggunakan API dari News
 - dll
 
 ## Screenshoot
+<img src="screenshoot/s1.png" height="200" /> <img src="screenshoot/s1.png" height="200" />
 
 ![alt-text-1](screenshoot/s1.png =x250) ![alt-text-2](screenshoot/s2.png =x250) ![alt-text-3](screenshoot/s3.png =x250)
