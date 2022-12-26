@@ -1,16 +1,16 @@
-# qinews
+# MakNews
 
-A new Flutter project.
+MakNew dibuat dengan Flutter dengan Clean Architecture menggunakan API dari NewsAPI.org v2. Packages yang digunakan :
 
-## Getting Started
+- State Management : BLoc & Flutter BLoC
+- Dartz
+- Dio
+- Freezed
+- json_annotation
+- Get it
+- Injectable
+- dll
 
-This project is a starting point for a Flutter application.
+## Screenshoot
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![alt-text-1](screenshoot/s1.png "screenshoot-1") ![alt-text-2](screenshoot/s2.png "screenshoot-2") ![alt-text-3](screenshoot/s3.png "screenshoot-3")
